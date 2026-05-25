@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Deepan Athi K | Personal Portfolio</title>
+  
+  <!-- Tailwind CSS Play CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Custom Tailwind Config -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cyberBg: '#030307',
+            neonCyan: '#00f0ff',
+            neonPurple: '#bd00ff',
+            neonMagenta: '#ff007a',
+            neonBlue: '#0088ff',
+            glassBg: 'rgba(14, 15, 27, 0.45)',
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            space: ['"Space Grotesk"', 'sans-serif'],
+            mono: ['"Share Tech Mono"', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Custom CSS Rules -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-cyberBg text-slate-100 min-h-screen relative font-sans antialiased overflow-x-hidden selection:bg-neonCyan selection:text-black">
+
+  <!-- PRELOADER -->
+  <div id="preloader">
+    <div class="loader-terminal font-mono text-sm leading-relaxed">
+      <div class="loader-line text-neonPurple opacity-0 translate-y-2">[SYS_INIT] BOOTING SYSTEM DEEPAN_ATHI_K v2.4.12...</div>
+      <div class="loader-line text-slate-400 opacity-0 translate-y-2">[SYS_OK] ESTABLISHED SECURE PROTOCOLS</div>
+      <div class="loader-line text-slate-400 opacity-0 translate-y-2">[SYS_OK] LOADING ELECTRONICS & ECE KERNELS</div>
+      <div class="loader-line text-slate-400 opacity-0 translate-y-2">[SYS_OK] LINKING HACKATHON PARTICIPATION STATS</div>
+      <div class="loader-line text-neonCyan opacity-0 translate-y-2">[SYS_OK] INITIALIZING PARTICLES & CYBER GRIDS</div>
+      <div class="loader-line text-neonMagenta opacity-0 translate-y-2">[SUCCESS] INITIALIZATION COMPLETE. READY TO EXECUTE.</div>
+      <div class="loader-progress-bar">
+        <div class="loader-progress-fill"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CUSTOM GLOW CURSOR -->
+  <div class="custom-cursor hidden md:block"></div>
+  <div class="custom-cursor-glow hidden md:block"></div>
+
+  <!-- FIXED PARTICLES BACKGROUND -->
+  <canvas id="particle-canvas"></canvas>
+  <div class="bg-grid"></div>
+
+  <!-- BACKGROUND GLOWING ORBS -->
+  <div class="orb orb-cyan"></div>
+  <div class="orb orb-purple"></div>
+  <div class="orb orb-magenta"></div>
+
+  <!-- HEADER & NAVIGATION -->
+  <header class="fixed top-0 left-0 w-full z-50 transition-all duration-300 border-b border-white/5 bg-cyberBg/75 backdrop-blur-md">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="#hero" class="font-space font-bold text-xl tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-neonCyan to-neonPurple hover:opacity-80 transition clickable">
+        DEEPAN<span class="text-neonMagenta">.EXE</span>
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <nav class="hidden md:flex items-center space-x-8">
+        <a href="#about" class="nav-link font-space text-sm tracking-widest text-slate-400 hover:text-white transition clickable py-1">ABOUT</a>
+        <a href="#education" class="nav-link font-space text-sm tracking-widest text-slate-400 hover:text-white transition clickable py-1">EDUCATION</a>
+        <a href="#skills" class="nav-link font-space text-sm tracking-widest text-slate-400 hover:text-white transition clickable py-1">SKILLS</a>
+        <a href="#achievements" class="nav-link font-space text-sm tracking-widest text-slate-400 hover:text-white transition clickable py-1">ACHIEVEMENTS</a>
+        <a href="#projects" class="nav-link font-space text-sm tracking-widest text-slate-400 hover:text-white transition clickable py-1">PROJECTS</a>
+        <a href="#resume" class="nav-link font-space text-sm tracking-widest text-slate-400 hover:text-white transition clickable py-1">RESUME</a>
+        <a href="#contact" class="nav-link font-space text-sm tracking-widest text-slate-400 hover:text-white transition clickable py-1">CONTACT</a>
+
+        <!-- Dark/Light theme toggler -->
+        <button id="theme-toggle" class="p-2 rounded text-slate-400 hover:text-neonCyan transition clickable" aria-label="Toggle Theme">
+          <!-- Sun Icon (displays in dark theme) -->
+          <svg id="theme-icon-sun" class="w-5 h-5 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <!-- Moon Icon (displays in light theme) -->
+          <svg id="theme-icon-moon" class="w-5 h-5 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+      </nav>
+
+      <!-- Mobile Hamburger Button -->
+      <button id="burger-menu" class="md:hidden flex items-center justify-center p-2 rounded text-slate-400 hover:text-white focus:outline-none clickable" aria-expanded="false">
+        <div class="hamburger w-6 h-5 flex flex-col justify-between relative">
+          <span class="w-full h-0.5 bg-current transition-transform duration-300"></span>
+          <span class="w-full h-0.5 bg-current transition-opacity duration-300"></span>
+          <span class="w-full h-0.5 bg-current transition-transform duration-300"></span>
+        </div>
+      </button>
+    </div>
+
+    <!-- Mobile Nav Overlay -->
+    <div id="mobile-nav" class="hidden md:hidden fixed top-[60px] left-0 w-full h-[calc(100vh-60px)] bg-cyberBg/95 backdrop-blur-xl flex-col items-center justify-center space-y-8 z-40 border-t border-white/5 animate-fade-in">
+      <a href="#about" class="font-space text-xl tracking-widest text-slate-400 hover:text-white transition py-2 clickable">ABOUT</a>
+      <a href="#education" class="font-space text-xl tracking-widest text-slate-400 hover:text-white transition py-2 clickable">EDUCATION</a>
+      <a href="#skills" class="font-space text-xl tracking-widest text-slate-400 hover:text-white transition py-2 clickable">SKILLS</a>
+      <a href="#achievements" class="font-space text-xl tracking-widest text-slate-400 hover:text-white transition py-2 clickable">ACHIEVEMENTS</a>
+      <a href="#projects" class="font-space text-xl tracking-widest text-slate-400 hover:text-white transition py-2 clickable">PROJECTS</a>
+      <a href="#resume" class="font-space text-xl tracking-widest text-slate-400 hover:text-white transition py-2 clickable">RESUME</a>
+      <a href="#contact" class="font-space text-xl tracking-widest text-slate-400 hover:text-white transition py-2 clickable">CONTACT</a>
+    </div>
+  </header>
+
+  <!-- MAIN CONTAINER -->
+  <main class="relative z-10">
+
+    <!-- 1. HERO SECTION -->
+    <section id="hero" class="min-h-screen flex flex-col justify-center px-6 relative py-24 max-w-7xl mx-auto">
+      <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(189,0,255,0.04),transparent_50%)] pointer-events-none"></div>
+      
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center z-10">
+        
+        <!-- Profile photo column (Left) -->
+        <div class="hero-profile-column lg:col-span-5 flex items-center justify-center">
+          <div class="profile-glow-wrapper clickable">
+            <img src="assets/profile.png" alt="Deepan Athi K Profile" class="w-[236px] h-[236px] rounded-full object-cover relative z-10 border-2 border-slate-900/40">
+          </div>
+        </div>
+
+        <!-- Text details column (Right) -->
+        <div class="lg:col-span-7 flex flex-col justify-center items-start text-left space-y-6">
+          <!-- Badge -->
+          <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full border border-neonCyan/20 bg-neonCyan/5 animate-pulse">
+            <span class="w-2 h-2 rounded-full bg-neonCyan"></span>
+            <span class="font-mono text-xs tracking-wider text-neonCyan uppercase font-semibold">ECE Core Kernel Online</span>
+          </div>
+
+          <!-- Name -->
+          <h1 class="hero-title-name font-space text-4xl md:text-7xl font-extrabold tracking-tight">
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-neonCyan via-neonBlue to-neonPurple text-glow-cyan glitch-text" data-text="Deepan Athi K">Deepan Athi K</span>
+          </h1>
+
+          <!-- Typing Subtitle -->
+          <p class="hero-subtitle text-lg md:text-2xl text-slate-300 font-medium h-8 flex items-center justify-start font-mono-cyber">
+            <span id="typing-text" class="text-neonCyan"></span>
+            <span class="typing-cursor">|</span>
+          </p>
+
+          <!-- Short Introduction -->
+          <p class="hero-intro-text text-slate-400 text-base md:text-lg leading-relaxed max-w-xl">
+            A forward-thinking Electronics and Communication Engineering student at Sona College of Technology, passionate about hardware-software integration, software development, AI, and embedded platforms. Driven to build smart innovations and solve technical challenges.
+          </p>
+
+          <!-- Action buttons -->
+          <div class="hero-ctas flex flex-wrap gap-4 w-full max-w-md pt-2">
+            <a href="assets/Deepan_Athi_K_Resume.pdf" download="Deepan_Athi_K_Resume.pdf" class="btn-cyber btn-cyber-primary text-xs py-3.5 px-6 rounded transition clickable text-center flex-1 min-w-[140px]">Download Resume</a>
+            <a href="#projects" class="border border-white/10 hover:border-neonCyan/50 hover:bg-neonCyan/5 px-6 py-3.5 rounded text-xs font-space tracking-widest text-slate-300 hover:text-white transition clickable text-center flex-1 min-w-[140px]">View Projects</a>
+            <a href="#contact" class="btn-cyber btn-cyber-secondary text-xs py-3.5 px-6 rounded transition clickable text-center flex-1 min-w-[140px]">Contact Me</a>
+          </div>
+
+          <!-- Social links dock -->
+          <div class="hero-socials flex items-center space-x-6 text-slate-400 pt-4">
+            <a href="https://github.com" target="_blank" class="hover:text-neonCyan hover:-translate-y-1 transition duration-300 clickable" aria-label="GitHub">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482C19.138 20.193 22 16.44 22 12.017 22 6.484 17.522 2 12 2z"/></svg>
+            </a>
+            <a href="https://linkedin.com" target="_blank" class="hover:text-neonBlue hover:-translate-y-1 transition duration-300 clickable" aria-label="LinkedIn">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+            </a>
+            <a href="mailto:deepan.athi@gmail.com" class="hover:text-neonMagenta hover:-translate-y-1 transition duration-300 clickable" aria-label="Email">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+            </a>
+            <a href="tel:+910000000000" class="hover:text-neonCyan hover:-translate-y-1 transition duration-300 clickable" aria-label="Phone">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 2. ABOUT ME SECTION -->
+    <section id="about" class="py-24 px-6 max-w-7xl mx-auto border-t border-white/5">
+      <div class="text-center mb-16">
+        <h2 class="section-heading font-space text-3xl md:text-5xl font-bold tracking-tight text-white inline-block relative">
+          ABOUT <span class="text-neonCyan text-glow-cyan">ME</span>
+          <span class="absolute -bottom-2 left-0 w-1/3 h-0.5 bg-neonCyan"></span>
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <!-- Abstract Tech Art (Left Column) -->
+        <div class="about-content-left lg:col-span-5 flex justify-center">
+          <div class="relative w-64 h-64 md:w-80 md:h-80 glass-card cyber-card flex items-center justify-center p-8 clickable">
+            <div class="absolute inset-0 bg-gradient-to-tr from-neonCyan/10 via-transparent to-neonPurple/10"></div>
+            <svg class="w-full h-full text-neonCyan opacity-80" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="100" cy="100" r="80" stroke="currentColor" stroke-width="1" stroke-dasharray="8,8" class="animate-[spin_40s_linear_infinite]" />
+              <circle cx="100" cy="100" r="60" stroke="#bd00ff" stroke-width="1.5" class="animate-[spin_20s_linear_infinite_reverse]" />
+              <polygon points="100,45 145,125 55,125" stroke="currentColor" stroke-width="2" class="animate-[spin_30s_linear_infinite]" />
+              <rect x="75" y="75" width="50" height="50" stroke="#ff007a" stroke-width="1" class="animate-[spin_15s_linear_infinite]" />
+              <circle cx="100" cy="100" r="10" fill="currentColor" class="animate-pulse" />
+              <line x1="100" y1="45" x2="100" y2="10" stroke="currentColor" stroke-width="1" />
+              <circle cx="100" cy="10" r="4" fill="currentColor" />
+              <line x1="55" y1="125" x2="20" y2="145" stroke="currentColor" stroke-width="1" />
+              <circle cx="20" cy="145" r="4" fill="currentColor" />
+              <line x1="145" y1="125" x2="180" y2="145" stroke="currentColor" stroke-width="1" />
+              <circle cx="180" cy="145" r="4" fill="currentColor" />
+            </svg>
+            <div class="absolute bottom-4 font-mono text-[10px] text-neonMagenta tracking-widest uppercase">System Core Map</div>
+          </div>
+        </div>
+
+        <!-- Professional student intro (Right Column) -->
+        <div class="about-content-right lg:col-span-7 space-y-6">
+          <h3 class="font-space text-2xl font-semibold text-neonCyan">Electronics & Communication Student | Developer</h3>
+          <p class="text-slate-300 text-lg leading-relaxed">
+            I am a dedicated 2nd-year B.E Electronics and Communication Engineering (ECE) student at <span class="text-white font-semibold">Sona College of Technology</span>, hailing from <span class="text-white font-semibold">Karaikudi, Tamil Nadu, India</span>. Driven by curiosity, I actively explore the synergy between electronics hardware design and modern software engineering. 
+          </p>
+          <p class="text-slate-300 text-lg leading-relaxed">
+            Participating in hackathons and paper presentation forums allows me to build solutions under pressure, prototype systems, and collaborate with teams. I have developed a strong interest in AI technologies, embedded systems, microcontrollers, and responsive web systems. My career goal is to become an expert software developer and technical innovator, creating applications that bridge the physical and digital worlds.
+          </p>
+          
+          <div class="grid grid-cols-2 gap-6 pt-4 font-mono text-sm">
+            <div>
+              <span class="text-neonPurple block text-xs tracking-wider uppercase mb-1">NATIVE PLACE</span>
+              <span class="text-white font-semibold">Karaikudi, TN, India</span>
+            </div>
+            <div>
+              <span class="text-neonCyan block text-xs tracking-wider uppercase mb-1">EDUCATION LEVEL</span>
+              <span class="text-white font-semibold">B.E. ECE, 2nd Year</span>
+            </div>
+            <div>
+              <span class="text-neonMagenta block text-xs tracking-wider uppercase mb-1">INTEREST AREAS</span>
+              <span class="text-white font-semibold">AI, Embedded, Web Tech</span>
+            </div>
+            <div>
+              <span class="text-neonBlue block text-xs tracking-wider uppercase mb-1">HACKATHONS</span>
+              <span class="text-white font-semibold">SIH, VIT, Thiran Forums</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 3. EDUCATION SECTION -->
+    <section id="education" class="py-24 px-6 bg-slate-950/20 relative border-t border-white/5">
+      <div class="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(0,240,255,0.02),transparent_40%)] pointer-events-none"></div>
+      
+      <div class="max-w-7xl mx-auto relative z-10">
+        <div class="text-center mb-16">
+          <h2 class="section-heading font-space text-3xl md:text-5xl font-bold tracking-tight text-white inline-block relative">
+            EDUCATION <span class="text-neonPurple text-glow-purple">PATHWAY</span>
+            <span class="absolute -bottom-2 left-0 w-1/3 h-0.5 bg-neonPurple"></span>
+          </h2>
+        </div>
+
+        <div class="max-w-3xl mx-auto space-y-12">
+          <!-- Timeline Card: College -->
+          <div class="timeline-item group">
+            <div class="timeline-dot"></div>
+            <div class="glass-card cyber-card p-6 md:p-8 clickable">
+              <div class="flex flex-col md:flex-row md:items-center justify-between mb-4 gap-2">
+                <span class="font-mono text-xs text-neonCyan tracking-widest uppercase">2024 - Present</span>
+                <span class="px-2.5 py-0.5 rounded text-[10px] font-mono tracking-widest bg-cyan-500/10 border border-cyan-500/20 text-neonCyan w-fit">2ND YEAR STUDENT</span>
+              </div>
+              <h3 class="font-space text-xl md:text-2xl font-bold text-white group-hover:text-neonCyan transition">B.E. Electronics and Communication Engineering</h3>
+              <p class="text-slate-400 font-medium mb-4">Sona College of Technology, Salem</p>
+              <p class="text-slate-300 leading-relaxed text-sm">
+                Focusing on circuit designs, analog/digital systems, telecommunications theory, and microcontroller interfaces. Integrating theoretical electronics concepts with logical computing solutions.
+              </p>
+            </div>
+          </div>
+
+          <!-- Timeline Card: High School Prep -->
+          <div class="timeline-item group">
+            <div class="timeline-dot"></div>
+            <div class="glass-card cyber-card p-6 md:p-8 clickable">
+              <div class="flex flex-col md:flex-row md:items-center justify-between mb-4 gap-2">
+                <span class="font-mono text-xs text-neonPurple tracking-widest uppercase">2022 - 2024</span>
+                <span class="px-2.5 py-0.5 rounded text-[10px] font-mono tracking-widest bg-purple-500/10 border border-purple-500/20 text-neonPurple w-fit">HIGHER SECONDARY</span>
+              </div>
+              <h3 class="font-space text-xl md:text-2xl font-bold text-white group-hover:text-neonPurple transition">Higher Secondary Education (Class XII)</h3>
+              <p class="text-slate-400 font-medium mb-4">Schooling at Karaikudi</p>
+              <p class="text-slate-300 leading-relaxed text-sm">
+                Studied advanced Physics, Chemistry, and Mathematics. Established core logical analysis capabilities and introductory programming.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. SKILLS SECTION -->
+    <section id="skills" class="py-24 px-6 max-w-7xl mx-auto border-t border-white/5">
+      <div class="text-center mb-16">
+        <h2 class="section-heading font-space text-3xl md:text-5xl font-bold tracking-tight text-white inline-block relative">
+          TECHNICAL <span class="text-neonCyan text-glow-cyan">MATRIX</span>
+          <span class="absolute -bottom-2 left-0 w-1/3 h-0.5 bg-neonCyan"></span>
+        </h2>
+      </div>
+
+      <!-- Skills Grouped (Linear Bars) -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <!-- Frontend Development Panel -->
+        <div class="glass-card cyber-card p-6 flex flex-col justify-between">
+          <div>
+            <h3 class="font-space font-bold text-lg text-white mb-6 flex items-center space-x-2">
+              <span class="w-1.5 h-6 bg-neonCyan rounded-full"></span>
+              <span>Frontend Web Dev</span>
+            </h3>
+            
+            <div class="space-y-6">
+              <!-- Skill: HTML -->
+              <div>
+                <div class="flex justify-between text-xs font-mono mb-1.5">
+                  <span class="text-slate-300">HTML5</span>
+                  <span class="text-neonCyan">90%</span>
+                </div>
+                <div class="w-full h-2 bg-white/5 rounded-full relative overflow-visible">
+                  <div class="progress-bar-fill progress-bar-tip h-full bg-gradient-to-r from-neonCyan to-neonBlue rounded-full shadow-lg shadow-neonCyan/30" data-percent="90" style="width: 0%"></div>
+                </div>
+              </div>
+
+              <!-- Skill: CSS -->
+              <div>
+                <div class="flex justify-between text-xs font-mono mb-1.5">
+                  <span class="text-slate-300">CSS3</span>
+                  <span class="text-neonCyan">85%</span>
+                </div>
+                <div class="w-full h-2 bg-white/5 rounded-full relative overflow-visible">
+                  <div class="progress-bar-fill progress-bar-tip h-full bg-gradient-to-r from-neonCyan to-neonBlue rounded-full shadow-lg shadow-neonCyan/30" data-percent="85" style="width: 0%"></div>
+                </div>
+              </div>
+
+              <!-- Skill: JS -->
+              <div>
+                <div class="flex justify-between text-xs font-mono mb-1.5">
+                  <span class="text-slate-300">JavaScript</span>
+                  <span class="text-neonCyan">75%</span>
+                </div>
+                <div class="w-full h-2 bg-white/5 rounded-full relative overflow-visible">
+                  <div class="progress-bar-fill progress-bar-tip h-full bg-gradient-to-r from-neonCyan to-neonBlue rounded-full shadow-lg shadow-neonCyan/30" data-percent="75" style="width: 0%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Programming Languages Panel -->
+        <div class="glass-card cyber-card p-6 flex flex-col justify-between">
+          <div>
+            <h3 class="font-space font-bold text-lg text-white mb-6 flex items-center space-x-2">
+              <span class="w-1.5 h-6 bg-neonPurple rounded-full"></span>
+              <span>Programming Core</span>
+            </h3>
+            
+            <div class="space-y-6">
+              <!-- Skill: C -->
+              <div>
+                <div class="flex justify-between text-xs font-mono mb-1.5">
+                  <span class="text-slate-300">C Programming</span>
+                  <span class="text-neonPurple">85%</span>
+                </div>
+                <div class="w-full h-2 bg-white/5 rounded-full relative overflow-visible">
+                  <div class="progress-bar-fill progress-bar-tip h-full bg-gradient-to-r from-neonPurple to-neonMagenta rounded-full shadow-lg shadow-neonPurple/30" data-percent="85" style="width: 0%"></div>
+                </div>
+              </div>
+
+              <!-- Skill: Python -->
+              <div>
+                <div class="flex justify-between text-xs font-mono mb-1.5">
+                  <span class="text-slate-300">Python</span>
+                  <span class="text-neonPurple">80%</span>
+                </div>
+                <div class="w-full h-2 bg-white/5 rounded-full relative overflow-visible">
+                  <div class="progress-bar-fill progress-bar-tip h-full bg-gradient-to-r from-neonPurple to-neonMagenta rounded-full shadow-lg shadow-neonPurple/30" data-percent="80" style="width: 0%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Engineering Tools Panel -->
+        <div class="glass-card cyber-card p-6 flex flex-col justify-between">
+          <div>
+            <h3 class="font-space font-bold text-lg text-white mb-6 flex items-center space-x-2">
+              <span class="w-1.5 h-6 bg-neonMagenta rounded-full"></span>
+              <span>Developer Tools</span>
+            </h3>
+            
+            <div class="space-y-6">
+              <!-- Skill: VS Code -->
+              <div>
+                <div class="flex justify-between text-xs font-mono mb-1.5">
+                  <span class="text-slate-300">VS Code</span>
+                  <span class="text-neonMagenta">90%</span>
+                </div>
+                <div class="w-full h-2 bg-white/5 rounded-full relative overflow-visible">
+                  <div class="progress-bar-fill progress-bar-tip h-full bg-gradient-to-r from-neonMagenta to-neonPurple rounded-full shadow-lg shadow-neonMagenta/30" data-percent="90" style="width: 0%"></div>
+                </div>
+              </div>
+
+              <!-- Skill: Git -->
+              <div>
+                <div class="flex justify-between text-xs font-mono mb-1.5">
+                  <span class="text-slate-300">Git Version Control</span>
+                  <span class="text-neonMagenta">80%</span>
+                </div>
+                <div class="w-full h-2 bg-white/5 rounded-full relative overflow-visible">
+                  <div class="progress-bar-fill progress-bar-tip h-full bg-gradient-to-r from-neonMagenta to-neonPurple rounded-full shadow-lg shadow-neonMagenta/30" data-percent="80" style="width: 0%"></div>
+                </div>
+              </div>
+
+              <!-- Skill: GitHub -->
+              <div>
+                <div class="flex justify-between text-xs font-mono mb-1.5">
+                  <span class="text-slate-300">GitHub Portal</span>
+                  <span class="text-neonMagenta">85%</span>
+                </div>
+                <div class="w-full h-2 bg-white/5 rounded-full relative overflow-visible">
+                  <div class="progress-bar-fill progress-bar-tip h-full bg-gradient-to-r from-neonMagenta to-neonPurple rounded-full shadow-lg shadow-neonMagenta/30" data-percent="85" style="width: 0%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Extra circular skills gauges -->
+      <div class="mt-16 grid grid-cols-2 sm:grid-cols-4 gap-6 justify-items-center">
+        <!-- Embedded -->
+        <div class="skill-card glass-card p-4 flex flex-col items-center w-36 clickable">
+          <div class="skill-circle mb-3">
+            <svg>
+              <circle cx="50" cy="50" r="45" class="bg-ring" />
+              <circle cx="50" cy="50" r="45" class="glow-ring stroke-neonCyan" data-percent="75" />
+            </svg>
+            <div class="absolute inset-0 flex items-center justify-center font-mono text-sm font-bold text-white">75%</div>
+          </div>
+          <span class="font-space text-xs font-semibold tracking-wider text-slate-300 uppercase">Embedded Sys</span>
+        </div>
+
+        <!-- Circuits -->
+        <div class="skill-card glass-card p-4 flex flex-col items-center w-36 clickable">
+          <div class="skill-circle mb-3">
+            <svg>
+              <circle cx="50" cy="50" r="45" class="bg-ring" />
+              <circle cx="50" cy="50" r="45" class="glow-ring stroke-neonPurple" data-percent="80" />
+            </svg>
+            <div class="absolute inset-0 flex items-center justify-center font-mono text-sm font-bold text-white">80%</div>
+          </div>
+          <span class="font-space text-xs font-semibold tracking-wider text-slate-300 uppercase">Electronics</span>
+        </div>
+
+        <!-- Problem Solving -->
+        <div class="skill-card glass-card p-4 flex flex-col items-center w-36 clickable">
+          <div class="skill-circle mb-3">
+            <svg>
+              <circle cx="50" cy="50" r="45" class="bg-ring" />
+              <circle cx="50" cy="50" r="45" class="glow-ring stroke-neonMagenta" data-percent="85" />
+            </svg>
+            <div class="absolute inset-0 flex items-center justify-center font-mono text-sm font-bold text-white">85%</div>
+          </div>
+          <span class="font-space text-xs font-semibold tracking-wider text-slate-300 uppercase">Logic Solve</span>
+        </div>
+
+        <!-- Flask -->
+        <div class="skill-card glass-card p-4 flex flex-col items-center w-36 clickable">
+          <div class="skill-circle mb-3">
+            <svg>
+              <circle cx="50" cy="50" r="45" class="bg-ring" />
+              <circle cx="50" cy="50" r="45" class="glow-ring stroke-neonBlue" data-percent="70" />
+            </svg>
+            <div class="absolute inset-0 flex items-center justify-center font-mono text-sm font-bold text-white">70%</div>
+          </div>
+          <span class="font-space text-xs font-semibold tracking-wider text-slate-300 uppercase">Flask Dev</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. ACHIEVEMENTS SECTION -->
+    <section id="achievements" class="py-24 px-6 bg-slate-950/20 relative border-t border-white/5">
+      <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,0,122,0.02),transparent_50%)] pointer-events-none"></div>
+      
+      <div class="max-w-7xl mx-auto relative z-10">
+        <div class="text-center mb-16">
+          <h2 class="section-heading font-space text-3xl md:text-5xl font-bold tracking-tight text-white inline-block relative">
+            HONORS & <span class="text-neonMagenta text-glow-magenta">ACHIEVEMENTS</span>
+            <span class="absolute -bottom-2 left-0 w-1/3 h-0.5 bg-neonMagenta"></span>
+          </h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          
+          <!-- Card 1: SIH internal winner -->
+          <div class="achievement-card glass-card cyber-card p-6 flex flex-col justify-between clickable">
+            <div>
+              <div class="p-3 bg-neonCyan/10 rounded-lg text-neonCyan border border-neonCyan/20 w-fit mb-4">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
+              </div>
+              <span class="font-mono text-xs text-neonCyan tracking-widest uppercase mb-1 block">SMART INDIA HACKATHON</span>
+              <h3 class="font-space text-lg font-bold text-white mb-2">College Level SIH Selection</h3>
+              <p class="text-slate-400 text-sm leading-relaxed">
+                Successfully cleared the competitive college internal selection rounds, placing our team's project prototype in the top selection slots representing Sona College.
+              </p>
+            </div>
+          </div>
+
+          <!-- Card 2: Thiran Paper Presentation -->
+          <div class="achievement-card glass-card cyber-card p-6 flex flex-col justify-between clickable">
+            <div>
+              <div class="p-3 bg-neonPurple/10 rounded-lg text-neonPurple border border-neonPurple/20 w-fit mb-4">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+              </div>
+              <span class="font-mono text-xs text-neonPurple tracking-widest uppercase mb-1 block">TECHNICAL SYMPOSIUM</span>
+              <h3 class="font-space text-lg font-bold text-white mb-2">Thiran Paper Presentation</h3>
+              <p class="text-slate-400 text-sm leading-relaxed">
+                Participated in the Thiran forum. Compiled research concepts on modern ECE architectures, drafting diagram flows, block circuits, and optimizing telecommunications hardware maps.
+              </p>
+            </div>
+          </div>
+
+          <!-- Card 3: VIT Hackathon -->
+          <div class="achievement-card glass-card cyber-card p-6 flex flex-col justify-between clickable">
+            <div>
+              <div class="p-3 bg-neonMagenta/10 rounded-lg text-neonMagenta border border-neonMagenta/20 w-fit mb-4">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+              </div>
+              <span class="font-mono text-xs text-neonMagenta tracking-widest uppercase mb-1 block">INTER-COLLEGE RUN</span>
+              <h3 class="font-space text-lg font-bold text-white mb-2">VIT College Hackathon</h3>
+              <p class="text-slate-400 text-sm leading-relaxed">
+                Engaged in an intensive inter-college hackathon event at Vellore Institute of Technology (VIT), collaborating in coding sessions to deliver working systems under a strict 24h deadline.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. PROJECTS SECTION -->
+    <section id="projects" class="py-24 px-6 max-w-7xl mx-auto border-t border-white/5">
+      <div class="text-center mb-16">
+        <h2 class="section-heading font-space text-3xl md:text-5xl font-bold tracking-tight text-white inline-block relative">
+          PROJECTS <span class="text-neonCyan text-glow-cyan">ARCHIVE</span>
+          <span class="absolute -bottom-2 left-0 w-1/3 h-0.5 bg-neonCyan"></span>
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        
+        <!-- Project 1: Grocery Billing System -->
+        <div class="project-card glass-card cyber-card flex flex-col h-full clickable">
+          <div class="h-48 bg-slate-900/50 flex items-center justify-center border-b border-white/5 relative overflow-hidden group">
+            <div class="absolute inset-0 bg-gradient-to-t from-cyan-500/10 to-transparent"></div>
+            <!-- Receipt SVG vector -->
+            <svg class="w-20 h-20 text-neonCyan transition duration-500 group-hover:scale-110" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M30 20h40v60H30z" stroke="currentColor" stroke-width="2" />
+              <path d="M30 20l5-3 5 3 5-3 5 3 5-3 5 3 5-3" stroke="currentColor" stroke-width="2" />
+              <line x1="38" y1="35" x2="62" y2="35" stroke="currentColor" stroke-width="2" />
+              <line x1="38" y1="48" x2="52" y2="48" stroke="currentColor" />
+              <line x1="38" y1="58" x2="58" y2="58" stroke="currentColor" />
+              <line x1="38" y1="68" x2="62" y2="68" stroke="currentColor" stroke-dasharray="2,2" />
+            </svg>
+            <div class="absolute top-3 right-3 font-mono text-[9px] text-neonCyan/60 border border-neonCyan/30 px-1.5 py-0.5 rounded">INVENTORY_SYS</div>
+          </div>
+          <div class="p-6 flex flex-col justify-between flex-grow">
+            <div>
+              <h3 class="font-space text-2xl font-bold text-white mb-2">Grocery Billing System</h3>
+              <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                An inventory and checkout calculator application. Keeps tabs on item catalogs, applies discount algorithms, and aggregates total bills with clear CLI text formatting, designed for local store invoice scenarios.
+              </p>
+            </div>
+            <div>
+              <div class="flex flex-wrap gap-2 mb-6">
+                <span class="px-2 py-0.5 rounded text-[10px] font-mono tracking-widest bg-cyan-500/10 border border-cyan-500/20 text-neonCyan">C PROGRAMMING</span>
+                <span class="px-2 py-0.5 rounded text-[10px] font-mono tracking-widest bg-slate-800 border border-white/5 text-slate-300">INVENTORY</span>
+                <span class="px-2 py-0.5 rounded text-[10px] font-mono tracking-widest bg-slate-800 border border-white/5 text-slate-300">CALCULATOR</span>
+              </div>
+              <div class="flex gap-4">
+                <a href="https://github.com" target="_blank" class="flex-1 text-center py-2 border border-neonCyan/30 hover:border-neonCyan hover:bg-neonCyan/10 rounded text-xs font-space tracking-widest text-slate-300 hover:text-white transition clickable">GITHUB</a>
+                <a href="#" class="flex-1 text-center py-2 bg-neonCyan text-black font-bold rounded text-xs font-space tracking-widest hover:bg-opacity-80 transition clickable">LIVE DEMO</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 2: Banking System in C -->
+        <div class="project-card glass-card cyber-card flex flex-col h-full clickable">
+          <div class="h-48 bg-slate-900/50 flex items-center justify-center border-b border-white/5 relative overflow-hidden group">
+            <div class="absolute inset-0 bg-gradient-to-t from-purple-500/10 to-transparent"></div>
+            <!-- Lock SVG Vector -->
+            <svg class="w-20 h-20 text-neonPurple transition duration-500 group-hover:scale-110" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="25" y="40" width="50" height="40" rx="4" stroke="currentColor" stroke-width="2" />
+              <path d="M35 40V30a15 15 0 1130 0v10" stroke="currentColor" stroke-width="2" />
+              <circle cx="50" cy="58" r="4" fill="currentColor" />
+              <line x1="50" y1="62" x2="50" y2="70" stroke="currentColor" stroke-width="2" />
+            </svg>
+            <div class="absolute top-3 right-3 font-mono text-[9px] text-neonPurple/60 border border-neonPurple/30 px-1.5 py-0.5 rounded">C_SYSTEM</div>
+          </div>
+          <div class="p-6 flex flex-col justify-between flex-grow">
+            <div>
+              <h3 class="font-space text-2xl font-bold text-white mb-2">Banking System in C</h3>
+              <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                A CLI-based transaction simulator. Features secure balance lookups, mock deposits/withdrawals, pin validation mechanisms, and structural file storage routines built entirely using C structures.
+              </p>
+            </div>
+            <div>
+              <div class="flex flex-wrap gap-2 mb-6">
+                <span class="px-2 py-0.5 rounded text-[10px] font-mono tracking-widest bg-purple-500/10 border border-purple-500/20 text-neonPurple">C LANGUAGE</span>
+                <span class="px-2 py-0.5 rounded text-[10px] font-mono tracking-widest bg-slate-800 border border-white/5 text-slate-300">STRUCTS</span>
+                <span class="px-2 py-0.5 rounded text-[10px] font-mono tracking-widest bg-slate-800 border border-white/5 text-slate-300">FILE I/O</span>
+              </div>
+              <div class="flex gap-4">
+                <a href="https://github.com" target="_blank" class="flex-1 text-center py-2 border border-neonPurple/30 hover:border-neonPurple hover:bg-neonPurple/10 rounded text-xs font-space tracking-widest text-slate-300 hover:text-white transition clickable">GITHUB</a>
+                <a href="#" class="flex-1 text-center py-2 bg-neonPurple text-white font-bold rounded text-xs font-space tracking-widest hover:bg-opacity-80 transition clickable">LIVE DEMO</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 3: Portfolio Website -->
+        <div class="project-card glass-card cyber-card flex flex-col h-full clickable">
+          <div class="h-48 bg-slate-900/50 flex items-center justify-center border-b border-white/5 relative overflow-hidden group">
+            <div class="absolute inset-0 bg-gradient-to-t from-pink-500/10 to-transparent"></div>
+            <!-- Browser SVG -->
+            <svg class="w-20 h-20 text-neonMagenta transition duration-500 group-hover:scale-110" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="15" y="20" width="70" height="60" rx="6" stroke="currentColor" stroke-width="2" />
+              <circle cx="25" cy="30" r="3" fill="currentColor" />
+              <circle cx="35" cy="30" r="3" fill="currentColor" />
+              <circle cx="45" cy="30" r="3" fill="currentColor" />
+              <line x1="15" y1="40" x2="85" y2="40" stroke="currentColor" stroke-width="1.5" />
+              <path d="M25 55h30M25 65h20" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+            </svg>
+            <div class="absolute top-3 right-3 font-mono text-[9px] text-neonMagenta/60 border border-neonMagenta/30 px-1.5 py-0.5 rounded">FRONTED_EXE</div>
+          </div>
+          <div class="p-6 flex flex-col justify-between flex-grow">
+            <div>
+              <h3 class="font-space text-2xl font-bold text-white mb-2">Portfolio Website</h3>
+              <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                This exact site! Built with modern UI concepts using Tailwind CSS, glassmorphism layers, floating particle engine canvases, glowing cursor effects, and high-performance GSAP ScrollTrigger animations.
+              </p>
+            </div>
+            <div>
+              <div class="flex flex-wrap gap-2 mb-6">
+                <span class="px-2 py-0.5 rounded text-[10px] font-mono tracking-widest bg-pink-500/10 border border-pink-500/20 text-neonMagenta">HTML5 & CSS3</span>
+                <span class="px-2 py-0.5 rounded text-[10px] font-mono tracking-widest bg-slate-800 border border-white/5 text-slate-300">TAILWIND</span>
+                <span class="px-2 py-0.5 rounded text-[10px] font-mono tracking-widest bg-slate-800 border border-white/5 text-slate-300">GSAP</span>
+              </div>
+              <div class="flex gap-4">
+                <a href="https://github.com" target="_blank" class="flex-1 text-center py-2 border border-neonMagenta/30 hover:border-neonMagenta hover:bg-neonMagenta/10 rounded text-xs font-space tracking-widest text-slate-300 hover:text-white transition clickable">GITHUB</a>
+                <a href="#" class="flex-1 text-center py-2 bg-neonMagenta text-white font-bold rounded text-xs font-space tracking-widest hover:bg-opacity-80 transition clickable">LIVE DEMO</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 4: Flask Web Application -->
+        <div class="project-card glass-card cyber-card flex flex-col h-full clickable">
+          <div class="h-48 bg-slate-900/50 flex items-center justify-center border-b border-white/5 relative overflow-hidden group">
+            <div class="absolute inset-0 bg-gradient-to-t from-blue-500/10 to-transparent"></div>
+            <!-- API SVG -->
+            <svg class="w-20 h-20 text-neonBlue transition duration-500 group-hover:scale-110" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="50" cy="50" r="15" stroke="currentColor" stroke-width="2" />
+              <line x1="50" y1="20" x2="50" y2="35" stroke="currentColor" stroke-width="2" />
+              <circle cx="50" cy="18" r="5" fill="#bd00ff" />
+              <line x1="50" y1="65" x2="50" y2="80" stroke="currentColor" stroke-width="2" />
+              <circle cx="50" cy="82" r="5" fill="#00f0ff" />
+              <line x1="20" y1="50" x2="35" y2="50" stroke="currentColor" stroke-width="2" />
+              <circle cx="16" cy="50" r="5" fill="#ff007a" />
+              <line x1="65" y1="50" x2="80" y2="50" stroke="currentColor" stroke-width="2" />
+              <circle cx="84" cy="50" r="5" fill="currentColor" />
+            </svg>
+            <div class="absolute top-3 right-3 font-mono text-[9px] text-neonBlue/60 border border-neonBlue/30 px-1.5 py-0.5 rounded">BACKEND_EXE</div>
+          </div>
+          <div class="p-6 flex flex-col justify-between flex-grow">
+            <div>
+              <h3 class="font-space text-2xl font-bold text-white mb-2">Flask Web Application</h3>
+              <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                Lightweight Python Flask applications supporting RESTful APIs, SQLite query bindings, dashboard status tracks, dynamic server routing, and asynchronous request parsing loops.
+              </p>
+            </div>
+            <div>
+              <div class="flex flex-wrap gap-2 mb-6">
+                <span class="px-2 py-0.5 rounded text-[10px] font-mono tracking-widest bg-blue-500/10 border border-blue-500/20 text-neonBlue">FLASK</span>
+                <span class="px-2 py-0.5 rounded text-[10px] font-mono tracking-widest bg-slate-800 border border-white/5 text-slate-300">SQLITE</span>
+                <span class="px-2 py-0.5 rounded text-[10px] font-mono tracking-widest bg-slate-800 border border-white/5 text-slate-300">REST API</span>
+              </div>
+              <div class="flex gap-4">
+                <a href="https://github.com" target="_blank" class="flex-1 text-center py-2 border border-neonBlue/30 hover:border-neonBlue hover:bg-neonBlue/10 rounded text-xs font-space tracking-widest text-slate-300 hover:text-white transition clickable">GITHUB</a>
+                <a href="#" class="flex-1 text-center py-2 bg-neonBlue text-white font-bold rounded text-xs font-space tracking-widest hover:bg-opacity-80 transition clickable">LIVE DEMO</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 7. EXPERIENCE & ACTIVITIES SECTION -->
+    <section id="experience" class="py-24 px-6 bg-slate-950/20 relative border-t border-white/5">
+      <div class="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,rgba(189,0,255,0.02),transparent_40%)] pointer-events-none"></div>
+      
+      <div class="max-w-7xl mx-auto relative z-10">
+        <div class="text-center mb-16">
+          <h2 class="section-heading font-space text-3xl md:text-5xl font-bold tracking-tight text-white inline-block relative">
+            EXPERIENCE & <span class="text-neonPurple text-glow-purple">ACTIVITIES</span>
+            <span class="absolute -bottom-2 left-0 w-1/3 h-0.5 bg-neonPurple"></span>
+          </h2>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          
+          <!-- Card 1 -->
+          <div class="experience-card glass-card cyber-card p-6 md:p-8 flex flex-col justify-between clickable">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <span class="font-mono text-xs text-neonCyan tracking-widest">HACKATHONS</span>
+                <span class="text-[10px] font-mono text-slate-400 bg-white/5 px-2 py-0.5 rounded border border-white/5">TEAM WORK</span>
+              </div>
+              <h3 class="font-space text-xl font-bold text-white mb-3">Hackathon Collaboration & Prototyping</h3>
+              <p class="text-slate-300 text-sm leading-relaxed mb-4">
+                Participated in various engineering hackathons (SIH, VIT, local panels). Experienced in forming quick team dynamics, assigning dev/design tasks, and driving project completion under aggressive timelines.
+              </p>
+              <ul class="text-slate-400 text-xs space-y-2 list-disc list-inside">
+                <li>Collaborated in full-stack Python/Flask setups and data parsing.</li>
+                <li>Worked closely on circuit validation and embedded firmware.</li>
+                <li>Tuned presentation decks for jury pitches.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="experience-card glass-card cyber-card p-6 md:p-8 flex flex-col justify-between clickable">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <span class="font-mono text-xs text-neonPurple tracking-widest">PRESENTATIONS</span>
+                <span class="text-[10px] font-mono text-slate-400 bg-white/5 px-2 py-0.5 rounded border border-white/5">COMMUNICATION</span>
+              </div>
+              <h3 class="font-space text-xl font-bold text-white mb-3">Technical Presentation Skills</h3>
+              <p class="text-slate-300 text-sm leading-relaxed mb-4">
+                Delivered paper outlines at forums like Thiran. Proficient at breaking down complex electrical designs and software algorithms into easily digestible diagrams and structures for engineering circles.
+              </p>
+              <ul class="text-slate-400 text-xs space-y-2 list-disc list-inside">
+                <li>Formulated detailed block schemes for electronics sensors integration.</li>
+                <li>Honed public speaking and logical defence during Q&A rounds.</li>
+                <li>Assembled clean visual charts using vector mapping.</li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. STATISTICS SECTION -->
+    <section id="statistics" class="py-20 px-6 max-w-7xl mx-auto border-t border-white/5">
+      <div class="glass-card cyber-card p-8 md:p-12 bg-gradient-to-r from-glassBg via-slate-950/40 to-glassBg">
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 justify-items-center text-center">
+          
+          <div>
+            <div class="stat-counter font-mono-cyber text-4xl md:text-6xl font-extrabold text-neonCyan mb-2" data-target="15" data-suffix="+">0</div>
+            <div class="font-space text-xs tracking-widest text-slate-400 uppercase font-semibold">Projects Completed</div>
+          </div>
+
+          <div>
+            <div class="stat-counter font-mono-cyber text-4xl md:text-6xl font-extrabold text-neonPurple mb-2" data-target="4" data-suffix="+">0</div>
+            <div class="font-space text-xs tracking-widest text-slate-400 uppercase font-semibold">Hackathons</div>
+          </div>
+
+          <div>
+            <div class="stat-counter font-mono-cyber text-4xl md:text-6xl font-extrabold text-neonMagenta mb-2" data-target="10" data-suffix="+">0</div>
+            <div class="font-space text-xs tracking-widest text-slate-400 uppercase font-semibold">Technical Skills</div>
+          </div>
+
+          <div>
+            <div class="stat-counter font-mono-cyber text-4xl md:text-6xl font-extrabold text-neonBlue mb-2" data-target="8" data-suffix="+">0</div>
+            <div class="font-space text-xs tracking-widest text-slate-400 uppercase font-semibold">Certifications / Events</div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- 9. RESUME SECTION (Professional Resume Center) -->
+    <section id="resume" class="py-24 px-6 max-w-7xl mx-auto border-t border-white/5">
+      <div class="text-center mb-16">
+        <h2 class="section-heading font-space text-3xl md:text-5xl font-bold tracking-tight text-white inline-block relative">
+          MY <span class="text-neonPurple text-glow-purple">RESUME</span>
+          <span class="absolute -bottom-2 left-0 w-1/3 h-0.5 bg-neonPurple"></span>
+        </h2>
+      </div>
+
+      <div class="glass-card cyber-card p-6 md:p-12 max-w-5xl mx-auto bg-gradient-to-br from-glassBg to-slate-950/10">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-left mb-10">
+          
+          <!-- Left Column: Summary & Education -->
+          <div class="space-y-8">
+            <div>
+              <h3 class="text-neonCyan font-space font-bold text-lg mb-4 tracking-wider uppercase border-b border-white/10 pb-2">Professional Summary</h3>
+              <p class="text-slate-300 text-sm leading-relaxed">
+                Passionate and logical Electronics and Communication Engineering undergraduate focused on creating high-quality software architectures, embedded system applications, and AI integrations. Active developer and hackathon collaborator.
+              </p>
+            </div>
+            
+            <div>
+              <h3 class="text-neonPurple font-space font-bold text-lg mb-4 tracking-wider uppercase border-b border-white/10 pb-2">Academic Qualifications</h3>
+              <div class="space-y-4 font-space">
+                <div>
+                  <h4 class="text-white font-bold text-base">B.E. Electronics & Communication Engineering</h4>
+                  <p class="text-slate-400 text-xs">Sona College of Technology, Salem | 2024 - Present (2nd Year)</p>
+                  <p class="text-slate-300 text-xs mt-1">Focusing on microcontrollers, embedded circuits, and IoT setups.</p>
+                </div>
+                <div>
+                  <h4 class="text-white font-bold text-base">Higher Secondary Certification</h4>
+                  <p class="text-slate-400 text-xs">Schooling at Karaikudi | 2022 - 2024</p>
+                  <p class="text-slate-300 text-xs mt-1">Acquired strong logic fundamentals in Mathematics and Physics.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column: Skills stack & Projects summary -->
+          <div class="space-y-8">
+            <div>
+              <h3 class="text-neonMagenta font-space font-bold text-lg mb-4 tracking-wider uppercase border-b border-white/10 pb-2">Technical Core</h3>
+              <div class="flex flex-wrap gap-2 pt-1 font-mono text-xs">
+                <span class="px-2.5 py-1 rounded bg-white/5 border border-white/5 text-slate-300">C Language</span>
+                <span class="px-2.5 py-1 rounded bg-white/5 border border-white/5 text-slate-300">Python</span>
+                <span class="px-2.5 py-1 rounded bg-white/5 border border-white/5 text-slate-300">HTML5 / CSS3</span>
+                <span class="px-2.5 py-1 rounded bg-white/5 border border-white/5 text-slate-300">JavaScript</span>
+                <span class="px-2.5 py-1 rounded bg-white/5 border border-white/5 text-slate-300">Flask</span>
+                <span class="px-2.5 py-1 rounded bg-white/5 border border-white/5 text-slate-300">Git & GitHub</span>
+                <span class="px-2.5 py-1 rounded bg-white/5 border border-white/5 text-slate-300">Embedded Systems</span>
+                <span class="px-2.5 py-1 rounded bg-white/5 border border-white/5 text-slate-300">Circuits Design</span>
+                <span class="px-2.5 py-1 rounded bg-white/5 border border-white/5 text-slate-300">VS Code</span>
+              </div>
+            </div>
+
+            <div>
+              <h3 class="text-neonBlue font-space font-bold text-lg mb-4 tracking-wider uppercase border-b border-white/10 pb-2">Key Projects</h3>
+              <div class="space-y-3 font-space text-sm">
+                <div>
+                  <strong class="text-white">Banking CLI System in C</strong>
+                  <span class="text-slate-400 text-xs block">Secured data queries, file transactions simulation, structs logic.</span>
+                </div>
+                <div>
+                  <strong class="text-white">Grocery Billing Calculator</strong>
+                  <span class="text-slate-400 text-xs block">Inventory items parser, invoice receipts formatting, checkout formulas.</span>
+                </div>
+                <div>
+                  <strong class="text-white">Flask RESTful API Microservices</strong>
+                  <span class="text-slate-400 text-xs block">Server routing setups, SQLite databases, front/back integrations.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="pt-6 border-t border-white/5 flex flex-col items-center justify-center space-y-4">
+          <p class="text-slate-400 text-xs font-mono">
+            SECURE LINK DETECTED: Print-ready PDF document compiled.
+          </p>
+          <a href="assets/Deepan_Athi_K_Resume.pdf" download="Deepan_Athi_K_Resume.pdf" class="btn-cyber btn-cyber-secondary py-3.5 px-8 rounded transition inline-block clickable">
+            Download Resume PDF
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10. CONTACT SECTION -->
+    <section id="contact" class="py-24 px-6 max-w-7xl mx-auto border-t border-white/5">
+      <div class="text-center mb-16">
+        <h2 class="section-heading font-space text-3xl md:text-5xl font-bold tracking-tight text-white inline-block relative">
+          ESTABLISH <span class="text-neonCyan text-glow-cyan">LINK</span>
+          <span class="absolute -bottom-2 left-0 w-1/3 h-0.5 bg-neonCyan"></span>
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+        
+        <!-- Contact Info column -->
+        <div class="contact-info lg:col-span-5 space-y-8 flex flex-col justify-between">
+          <div class="space-y-6">
+            <h3 class="font-space text-2xl font-bold text-white">Let's build something futuristic</h3>
+            <p class="text-slate-300 leading-relaxed">
+              If you want to collaborate on a hackathon, discuss ECE/embedded research ideas, build a web project, or just have a technical conversation, feel free to send a secure transmission!
+            </p>
+            
+            <div class="space-y-4 font-mono text-sm text-slate-300">
+              <div class="flex items-center space-x-4">
+                <div class="w-10 h-10 rounded-lg bg-neonCyan/10 border border-neonCyan/20 flex items-center justify-center text-neonCyan">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                </div>
+                <span>deepan.athi@gmail.com</span>
+              </div>
+
+              <div class="flex items-center space-x-4">
+                <div class="w-10 h-10 rounded-lg bg-neonPurple/10 border border-neonPurple/20 flex items-center justify-center text-neonPurple">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                </div>
+                <span>+91 98765 43210</span>
+              </div>
+
+              <div class="flex items-center space-x-4">
+                <div class="w-10 h-10 rounded-lg bg-neonMagenta/10 border border-neonMagenta/20 flex items-center justify-center text-neonMagenta">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                </div>
+                <span>Karaikudi, Tamil Nadu, India</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom socials dock -->
+          <div class="flex items-center space-x-6 text-slate-400 pt-6 border-t border-white/5">
+            <a href="https://github.com" target="_blank" class="hover:text-neonCyan hover:-translate-y-1 transition duration-300 clickable" aria-label="GitHub"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482C19.138 20.193 22 16.44 22 12.017 22 6.484 17.522 2 12 2z"/></svg></a>
+            <a href="https://linkedin.com" target="_blank" class="hover:text-neonBlue hover:-translate-y-1 transition duration-300 clickable" aria-label="LinkedIn"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
+            <a href="mailto:deepan.athi@gmail.com" class="hover:text-neonMagenta hover:-translate-y-1 transition duration-300 clickable" aria-label="Email"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg></a>
+          </div>
+        </div>
+
+        <!-- Contact Form column -->
+        <div class="contact-form-wrapper lg:col-span-7">
+          <div class="glass-card cyber-card p-6 md:p-8">
+            <form id="cyber-contact-form" class="space-y-6">
+              
+              <div class="floating-input-group">
+                <input type="text" id="form-name" required placeholder=" " class="floating-input clickable">
+                <label for="form-name" class="floating-label">Ident Name</label>
+              </div>
+
+              <div class="floating-input-group">
+                <input type="email" id="form-email" required placeholder=" " class="floating-input clickable">
+                <label for="form-email" class="floating-label">Secure E-Mail</label>
+              </div>
+
+              <div class="floating-input-group">
+                <input type="text" id="form-subject" required placeholder=" " class="floating-input clickable">
+                <label for="form-subject" class="floating-label">Subject Header</label>
+              </div>
+
+              <div class="floating-input-group">
+                <textarea id="form-message" required rows="5" placeholder=" " class="floating-input clickable resize-none"></textarea>
+                <label for="form-message" class="floating-label">Transmission Message</label>
+              </div>
+
+              <div id="form-status" class="hidden text-xs font-mono py-2"></div>
+
+              <button type="submit" class="btn-cyber btn-cyber-primary w-full py-4 text-sm font-space tracking-widest font-bold rounded shadow-lg shadow-neonCyan/10 transition clickable">
+                TRANSMIT SECURE SIGNAL
+              </button>
+
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 11. FOOTER -->
+    <footer class="py-12 border-t border-white/5 relative z-10 bg-slate-950/50 backdrop-blur-md">
+      <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
+        <div class="text-center md:text-left">
+          <p class="font-mono text-xs text-slate-500">
+            &copy; 2026 Deepan Athi K. All terminal protocols active.
+          </p>
+          <p class="font-space text-sm text-slate-300 mt-1">
+            Designed and Developed by <span class="text-neonCyan font-semibold">Deepan Athi K</span>
+          </p>
+        </div>
+
+        <div class="flex items-center space-x-6 text-xs font-mono text-slate-500">
+          <a href="#about" class="hover:text-neonCyan transition clickable">ABOUT</a>
+          <a href="#projects" class="hover:text-neonPurple transition clickable">PROJECTS</a>
+          <a href="#resume" class="hover:text-neonMagenta transition clickable">RESUME</a>
+          <a href="#contact" class="hover:text-neonMagenta transition clickable">CONTACT</a>
+        </div>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- GSAP Core and ScrollTrigger Scripts (CDN) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  
+  <!-- Client Logic Script -->
+  <script src="app.js"></script>
+</body>
+</html>
