@@ -85,47 +85,66 @@
   </svg>
 
   <!-- ==================== STATE 1: LOGIN PORTAL ==================== -->
-  <div id="login-screen" class="min-h-screen flex items-center justify-center relative z-40 bg-[#010103]/90 overflow-hidden">
+  <div id="login-screen" class="min-h-screen flex items-center justify-center relative z-40 bg-[#020205] overflow-hidden">
+    <!-- Neon blur background circles -->
+    <div class="absolute w-[400px] h-[400px] rounded-full bg-neonCyan/5 blur-[120px] top-10 left-10 pointer-events-none"></div>
+    <div class="absolute w-[400px] h-[400px] rounded-full bg-neonPurple/5 blur-[120px] bottom-10 right-10 pointer-events-none"></div>
+    
     <!-- Login PCB Circuit Canvas -->
     <canvas id="login-canvas"></canvas>
     
-    <div class="glass-card cyber-card p-8 max-w-md w-full mx-6 relative z-10 text-center space-y-6">
+    <!-- Glassmorphic Login Card -->
+    <div class="glass-card cyber-card p-8 max-w-md w-full mx-6 relative z-10 text-center space-y-6 bg-slate-950/80 backdrop-blur-2xl border border-neonCyan/30">
       <div class="holo-line"></div>
       
-      <!-- Center Glowing Profile Picture -->
-      <div class="profile-glow-wrapper mx-auto">
+      <!-- Profile Image -->
+      <div class="w-28 h-28 rounded-full p-1 bg-gradient-to-r from-neonCyan via-neonGreen to-neonPurple shadow-lg shadow-neonCyan/20 mx-auto overflow-hidden relative">
         <img src="assets/profile.png" alt="Deepan Athi K" class="w-full h-full rounded-full object-cover">
       </div>
       
-      <div>
-        <h2 class="font-space text-2xl font-bold tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-neonCyan to-neonGreen ece-logo-glow">DEEPAN.EXE</h2>
-        <p class="font-mono text-xs text-neonCyan mt-1">ECE SYSTEM SECURITY PORTAL</p>
+      <!-- Details Panel -->
+      <div class="space-y-1.5">
+        <h2 class="text-3xl font-bold tracking-wide text-white font-dom text-glow-cyan">Deepan Athi K</h2>
+        <p class="font-mono text-[11px] text-neonCyan">Sona College of Technology</p>
+        <p class="font-mono text-[10px] text-slate-400">Electronics and Communication Engineering (ECE)</p>
       </div>
 
-      <div class="font-mono text-[10px] text-slate-400 bg-black/50 p-3 rounded text-left border border-white/5 space-y-1">
+      <!-- Credentials Hint Box -->
+      <div class="font-mono text-[10px] text-slate-400 bg-slate-950 border border-white/5 p-3 rounded text-left space-y-1">
         <div class="text-neonCyan font-bold mb-1">[ACCESS SYSTEM CREDENTIALS]</div>
         <div>SYS_USER: <span class="text-white font-bold">aathi</span></div>
         <div>SYS_PASS: <span class="text-white font-bold">aathi123</span></div>
-        <div class="text-[9px] text-slate-500 mt-1 border-t border-white/5 pt-1">OR CLICK THE BIOMETRIC SCANNED NODE TO BYPASS</div>
       </div>
       
       <!-- Login Form -->
-      <form id="login-form" class="space-y-5 text-left">
-        <div class="floating-input-group">
-          <input type="text" id="login-username" required placeholder=" " class="floating-input text-sm">
-          <label for="login-username" class="floating-label text-xs">IDENT USERNAME</label>
+      <form id="login-form" class="space-y-4 text-left">
+        
+        <!-- Username input -->
+        <div class="relative">
+          <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-400">
+            <i class="fa-solid fa-user text-xs"></i>
+          </span>
+          <input type="text" id="login-username" placeholder="Enter Username" class="w-full pl-10 pr-4 py-3 bg-slate-900/90 border border-white/10 rounded-lg text-sm text-white focus:outline-none focus:border-neonCyan focus:ring-1 focus:ring-neonCyan transition">
         </div>
         
-        <div class="floating-input-group">
-          <input type="password" id="login-password" required placeholder=" " class="floating-input text-sm">
-          <label for="login-password" class="floating-label text-xs">ENCRYPTED KEYWORD</label>
+        <!-- Password input with Show/Hide Toggle -->
+        <div class="relative">
+          <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-400">
+            <i class="fa-solid fa-lock text-xs"></i>
+          </span>
+          <input type="password" id="login-password" placeholder="Enter Password" class="w-full pl-10 pr-10 py-3 bg-slate-900/90 border border-white/10 rounded-lg text-sm text-white focus:outline-none focus:border-neonCyan focus:ring-1 focus:ring-neonCyan transition">
+          <button type="button" id="password-toggle-btn" class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-white clickable">
+            <i class="fa-solid fa-eye text-xs" id="password-toggle-icon"></i>
+          </button>
         </div>
         
         <!-- Error output -->
         <div id="login-status-console" class="hidden font-mono text-[11px] text-neonMagenta bg-neonMagenta/5 border border-neonMagenta/20 p-2.5 rounded leading-normal"></div>
         
-        <button type="submit" class="btn-cyber btn-cyber-primary w-full py-4 text-xs font-bold tracking-widest font-space">
-          DECRYPT & ACCESS TERMINAL
+        <!-- Submit Button -->
+        <button type="submit" id="login-submit-btn" class="btn-cyber btn-cyber-primary w-full py-4 text-xs font-bold tracking-widest font-space flex items-center justify-center gap-2">
+          <i class="fa-solid fa-right-to-bracket" id="login-btn-icon"></i>
+          <span id="login-btn-text">DECRYPT & ENTER</span>
         </button>
       </form>
     </div>
@@ -133,10 +152,56 @@
 
 
   <!-- ==================== STATE 2: MAIN LAB DASHBOARD ==================== -->
-  <div id="dashboard-screen" class="hidden relative z-30">
+  <div id="dashboard-screen" class="hidden relative z-30 animate-fade-in">
     
+    <!-- DASHBOARD SIDEBAR CONSOLE NAVIGATION -->
+    <div class="sidebar-dock hidden lg:flex">
+      <a href="#about" class="sidebar-icon-btn active" title="About Me">
+        <i class="fa-solid fa-user"></i>
+        <span class="sidebar-tooltip">ABOUT ME</span>
+      </a>
+      <a href="#education" class="sidebar-icon-btn" title="Education">
+        <i class="fa-solid fa-graduation-cap"></i>
+        <span class="sidebar-tooltip">EDUCATION</span>
+      </a>
+      <a href="#experience" class="sidebar-icon-btn" title="Experience">
+        <i class="fa-solid fa-industry"></i>
+        <span class="sidebar-tooltip">EXPERIENCE</span>
+      </a>
+      <a href="#skills" class="sidebar-icon-btn" title="Technical Matrix">
+        <i class="fa-solid fa-chart-simple"></i>
+        <span class="sidebar-tooltip">TECHNICAL MATRIX</span>
+      </a>
+      <a href="#projects" class="sidebar-icon-btn" title="Projects">
+        <i class="fa-solid fa-briefcase"></i>
+        <span class="sidebar-tooltip">PROJECTS</span>
+      </a>
+      <a href="#achievements" class="sidebar-icon-btn" title="Achievements">
+        <i class="fa-solid fa-award"></i>
+        <span class="sidebar-tooltip">ACHIEVEMENTS</span>
+      </a>
+      <a href="#certificates" class="sidebar-icon-btn" title="Certificates">
+        <i class="fa-solid fa-certificate"></i>
+        <span class="sidebar-tooltip">CERTIFICATES</span>
+      </a>
+      <a href="#github" class="sidebar-icon-btn" title="GitHub Tracker">
+        <i class="fa-brands fa-github"></i>
+        <span class="sidebar-tooltip">GITHUB</span>
+      </a>
+      <a href="#contact" class="sidebar-icon-btn" title="Contact Link">
+        <i class="fa-solid fa-envelope"></i>
+        <span class="sidebar-tooltip">CONTACT</span>
+      </a>
+      
+      <!-- Logout Button -->
+      <button id="sidebar-logout-btn" class="sidebar-icon-btn mt-auto text-neonMagenta hover:text-red-500 hover:border-red-500 hover:shadow-red-500/20 clickable" title="Logout Session">
+        <i class="fa-solid fa-power-off"></i>
+        <span class="sidebar-tooltip">LOGOUT SESSION</span>
+      </button>
+    </div>
+
     <!-- FIXED HEADER -->
-    <header class="fixed top-0 left-0 w-full z-50 border-b border-white/5 bg-cyberBg/80 backdrop-blur-lg">
+    <header class="fixed top-0 left-0 w-full z-50 border-b border-white/5 bg-cyberBg/80 backdrop-blur-lg lg:pl-24">
       <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         
         <!-- Logo -->
@@ -174,6 +239,12 @@
           <button id="theme-toggle" class="p-2 rounded text-slate-400 hover:text-neonCyan transition clickable" aria-label="Toggle Light/Dark Theme">
             <i id="theme-icon-sun" class="fa-solid fa-sun w-4 h-4 hidden"></i>
             <i id="theme-icon-moon" class="fa-solid fa-moon w-4 h-4"></i>
+          </button>
+
+          <!-- Header Logout -->
+          <button id="header-logout-btn" class="p-2 rounded text-slate-400 hover:text-neonMagenta transition clickable flex items-center gap-1" aria-label="Logout Session">
+            <i class="fa-solid fa-power-off w-4 h-4 text-neonMagenta"></i>
+            <span class="font-mono text-[9px] tracking-wider uppercase hidden sm:inline">LOGOUT</span>
           </button>
 
           <!-- Mobile Hamburger Button -->

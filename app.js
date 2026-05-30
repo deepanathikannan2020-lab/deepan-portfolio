@@ -43,6 +43,13 @@ document.addEventListener('DOMContentLoaded', () => {
   // Authenticate user
   const loginForm = document.getElementById('login-form');
   const loginStatusConsole = document.getElementById('login-status-console');
+  const usernameInput = document.getElementById('login-username');
+  const passwordInput = document.getElementById('login-password');
+  const submitBtn = document.getElementById('login-submit-btn');
+  const submitBtnIcon = document.getElementById('login-btn-icon');
+  const submitBtnText = document.getElementById('login-btn-text');
+  const passwordToggleBtn = document.getElementById('password-toggle-btn');
+  const passwordToggleIcon = document.getElementById('password-toggle-icon');
   
   function checkAuthStatus() {
     const isAuthenticated = localStorage.getItem('aathi-auth') === 'true';
@@ -62,57 +69,131 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  // Password Visibility Toggle
+  if (passwordToggleBtn) {
+    passwordToggleBtn.addEventListener('click', () => {
+      if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        passwordToggleIcon.classList.remove('fa-eye');
+        passwordToggleIcon.classList.add('fa-eye-slash');
+      } else {
+        passwordInput.type = 'password';
+        passwordToggleIcon.classList.remove('fa-eye-slash');
+        passwordToggleIcon.classList.add('fa-eye');
+      }
+    });
+  }
+
   loginForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    const userVal = document.getElementById('login-username').value.trim();
-    const passVal = document.getElementById('login-password').value;
     
-    // Clear log console
+    const userVal = usernameInput.value.trim();
+    const passVal = passwordInput.value;
+    
+    // Clear status console
     loginStatusConsole.classList.add('hidden');
     loginStatusConsole.textContent = '';
 
-    if (userVal === 'aathi' && passVal === 'aathi123') {
-      // Access Granted
-      loginStatusConsole.classList.remove('hidden', 'text-neonMagenta', 'bg-neonMagenta/5', 'border-neonMagenta/20');
-      loginStatusConsole.classList.add('text-neonGreen', 'bg-neonGreen/5', 'border-neonGreen/20');
-      loginStatusConsole.textContent = '[SUCCESS] SIGNAL DECRYPTED. REDIRECTING...';
-      
-      localStorage.setItem('aathi-auth', 'true');
-      
-      // Animate transition
-      gsap.to(loginScreen, {
-        opacity: 0,
-        scale: 0.95,
-        duration: 0.8,
-        ease: 'power2.inOut',
-        onComplete: () => {
-          loginScreen.classList.add('hidden');
-          dashboardScreen.classList.remove('hidden');
-          dashboardScreen.style.opacity = 0;
-          gsap.to(dashboardScreen, {
-            opacity: 1,
-            duration: 0.6,
-            onComplete: () => {
-              triggerHeroAnimations();
-              initThreeJSBackground();
-              fetchGitHubProfile();
-              loadCertificates();
-            }
-          });
-        }
-      });
-    } else {
-      // Access Denied shake card
-      const loginCard = loginForm.closest('.glass-card');
-      loginCard.classList.remove('auth-shake');
-      void loginCard.offsetWidth; // Force repaint
-      loginCard.classList.add('auth-shake');
-      
-      loginStatusConsole.classList.remove('hidden', 'text-neonGreen', 'bg-neonGreen/5', 'border-neonGreen/20');
-      loginStatusConsole.classList.add('text-neonMagenta', 'bg-neonMagenta/5', 'border-neonMagenta/20');
-      loginStatusConsole.textContent = '[ERROR] INVALID ENCRYPT KEY OR IDENT USERNAME. LOG ATTEMPTED REJECTED.';
+    // Blank Field Validation
+    if (!userVal) {
+      showValidationError('Please enter username');
+      return;
     }
+    if (!passVal) {
+      showValidationError('Please enter password');
+      return;
+    }
+
+    // Trigger loading state animation
+    usernameInput.disabled = true;
+    passwordInput.disabled = true;
+    submitBtn.disabled = true;
+    
+    submitBtnText.textContent = 'DECRYPTING SECURE CHANNELS...';
+    submitBtnIcon.className = 'fa-solid fa-spinner animate-spin text-neonCyan';
+
+    // Simulate ECE channel handshaking delay
+    setTimeout(() => {
+      if (userVal === 'aathi' && passVal === 'aathi123') {
+        // Access Granted
+        loginStatusConsole.classList.remove('hidden', 'text-neonMagenta', 'bg-red-950/20', 'border-red-500/20');
+        loginStatusConsole.classList.add('text-neonGreen', 'bg-green-500/10', 'border-green-500/20');
+        loginStatusConsole.textContent = '[SUCCESS] SIGNAL STABLE. ACCESS GRANTED.';
+        
+        localStorage.setItem('aathi-auth', 'true');
+        
+        // Animate transition
+        gsap.to(loginScreen, {
+          opacity: 0,
+          scale: 0.95,
+          duration: 0.6,
+          ease: 'power2.inOut',
+          onComplete: () => {
+            loginScreen.classList.add('hidden');
+            dashboardScreen.classList.remove('hidden');
+            dashboardScreen.style.opacity = 0;
+            gsap.to(dashboardScreen, {
+              opacity: 1,
+              duration: 0.5,
+              onComplete: () => {
+                triggerHeroAnimations();
+                initThreeJSBackground();
+                fetchGitHubProfile();
+                loadCertificates();
+              }
+            });
+          }
+        });
+      } else {
+        // Access Denied
+        usernameInput.disabled = false;
+        passwordInput.disabled = false;
+        submitBtn.disabled = false;
+        submitBtnText.textContent = 'DECRYPT & ENTER';
+        submitBtnIcon.className = 'fa-solid fa-right-to-bracket';
+
+        // Shake card effect
+        const loginCard = loginForm.closest('.glass-card');
+        loginCard.classList.remove('auth-shake');
+        void loginCard.offsetWidth; // Force repaint
+        loginCard.classList.add('auth-shake');
+        
+        showValidationError('Incorrect password');
+      }
+    }, 1200);
   });
+
+  function showValidationError(message) {
+    loginStatusConsole.classList.remove('hidden');
+    loginStatusConsole.classList.add('text-neonMagenta', 'bg-red-950/20', 'border-red-500/20');
+    loginStatusConsole.textContent = `[DECRYPT_FAILED] ${message.toUpperCase()}`;
+  }
+
+  // ==================== SESSION LOGOUT CONTROLLER ====================
+  const sidebarLogoutBtn = document.getElementById('sidebar-logout-btn');
+  const headerLogoutBtn = document.getElementById('header-logout-btn');
+
+  function executeLogout() {
+    // Clear auth session from local storage
+    localStorage.removeItem('aathi-auth');
+    
+    // Smoothly fade out dashboard and reload page to login gate
+    gsap.to(dashboardScreen, {
+      opacity: 0,
+      duration: 0.5,
+      ease: 'power2.inOut',
+      onComplete: () => {
+        window.location.reload();
+      }
+    });
+  }
+
+  if (sidebarLogoutBtn) {
+    sidebarLogoutBtn.addEventListener('click', executeLogout);
+  }
+  if (headerLogoutBtn) {
+    headerLogoutBtn.addEventListener('click', executeLogout);
+  }
 
 
   // ==================== 2. HOLOGRAPHIC THREE.JS CIRCUIT GRID ====================
